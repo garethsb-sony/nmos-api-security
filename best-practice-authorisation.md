@@ -42,11 +42,15 @@ The entity that is using the API, for example:
 
 ### Protected Resource
 
-Any part the API that is access restricted. This may apply to read (e.g GET) or write (e.g POST) operations.
+Any part of the API that is access restricted. This may apply to read (e.g GET) or write (e.g POST) operations.
 
 ### Resource Owner
 
-An entity capable of granting the client access to a protected resource. When the resource owner is a person, it is referred to as an end-user.
+An entity capable of granting the client access to a protected resource.
+
+### End User
+
+A resource owner that is a person.
 
 ### Resource Server
 
@@ -57,12 +61,15 @@ The entity that is providing APIs containing protected resources, for example:
 
 ### Authorisation Server
 
-The server issuing access tokens to the client after successfully
-authenticating the resource owner and obtaining authorisation.
+The entity issuing access tokens to the client after successfully
+authenticating the resource owner and obtaining authorisation. 
+
+> This is done through the Security API?
+
 
 ### Access Token
 
-A short lived JSON Web Token that may be used by a client to access privileged resources on the resource server.
+A short lived JSON Web Token that may be used by a client to access privileged resources on the Resource Server.
 
 ### Bearer Token
 
@@ -76,6 +83,8 @@ it has the privileges required to access or modify some or all of the content us
 This document is not concerned with the security of the connection used to carry out authorisation or subsequently authorised interactions, but for the authorisation mechanisms described in this document to be effective the connection used must be secured, ideally using the recommendations covered in [BCP-003-01](best-practice-secure-comms.md).
 
 The client authentication mechanism described in this document is based on the OAuth2.0 Authorisation Framework [RFC 6749](RFC-6749). In particular JSON Web Tokens are used as the OAuth 2.0 Bearer Tokens and for client authorisation as per [RFC 7523](RFC-7523).
+
+> Perhaps introduce the Security API here?
 
 ## Authorisation Flow (informative)
 
@@ -96,14 +105,17 @@ The Bearer Token issued by the Authorisation Server are much shorter lived than 
 ### Authorisation Server API
 
 The Authorisation Server SHALL present an instance of the NMOS API Security API _TODO: Add link_
+> What is the Security API? Perhaps introduce it in the introduction+glossary?
 
 The Authorisation Server _MAY_ present multiple versions of the API on the same port, but _MUST_ name-space them accordingly as per the API specification.
 
-The Authorisation Server must otherwise be implemented as per [RFC 6749](RFC-6749).
+The Authorisation Server MUST otherwise be implemented as per [RFC 6749](RFC-6749).
 
 ### DNS-SD Advertisement
 
 The Authorisation Server MUST support advertising itself using DNS-SD as per [RFC 6763](RFC-6763). It MUST support advertisement over both mDNS and unicast service but MAY allow the operator to disable one or other of these discovery modes as a configuration option.
+
+> This needs to be consistent with other NMOS DNS-SD decisions of course.
 
 The Authorisation Server MUST advertise itself with the following service type:
 
@@ -189,7 +201,7 @@ _Public Clients_.
 
 Out of these three client types an NMOS Node most closely resembles a web application, because client
 credentials are not stored in the user-agent or a native application.
-Instead they are stored on a server away from the resource owner.
+Instead they are stored on a server away from the Resource Owner.
 The web application client type is the only OAuth 2.0 client type where this is
 permitted to be the case. [RFC 6749](RFC-6749) considers such clients to be _Confidential Clients_.
 
